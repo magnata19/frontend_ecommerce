@@ -4,10 +4,11 @@ import {
   CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
+import Modal from "./Modal";
 
 const Products = () => {
 
@@ -33,7 +34,7 @@ type TInventory = {
 
   const url = 'http://localhost:3000/api/products/all'
   const [product, setProduct] = useState<TProduct[]>([])
-
+  const [open, setOpen] = useState<boolean>(false)
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -50,8 +51,12 @@ type TInventory = {
     fetchProducts()
   }, [])
 
+  const handleClick = () => {
+    setOpen(true)
+  }
+
   return (
-    <div>
+    <div className="grid gap-4 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {product.map((prod: any) => (
         <Card key={prod._id} className="w-full max-w-sm">
           <CardHeader>
@@ -65,11 +70,14 @@ type TInventory = {
           <CardContent>
             <p>Descrição: {prod.description}</p>
           </CardContent>
-          <CardContent>
+          <CardContent className="flex items-center justify-between">
             <p>Estoque: {prod.inventory.quantity}</p>
+            <Button onClick={handleClick}>Detalhes</Button>
           </CardContent>
+
         </Card>
       ))}
+      <Modal open={open}/>
     </div>
   )
 }

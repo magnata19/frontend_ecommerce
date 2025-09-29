@@ -107,7 +107,7 @@ export function LoginForm({
         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
         and <a href="#">Privacy Policy</a>.
       </div>
-      {error && !success && <p className="text-red-500">Erro ao fazer login: {error}</p>}
+      {error && !success && <p className="text-red-500"> {error}</p>}
       {success && <p className="text-green-500">Login realizado com sucesso!</p>}
     </div>
   )
