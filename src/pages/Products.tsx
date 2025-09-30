@@ -34,7 +34,8 @@ type TInventory = {
 
   const url = 'http://localhost:3000/api/products/all'
   const [product, setProduct] = useState<TProduct[]>([])
-  const [open, setOpen] = useState<boolean>(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -52,7 +53,7 @@ type TInventory = {
   }, [])
 
   const handleClick = () => {
-    setOpen(true)
+    setIsModalOpen(true)
   }
 
   return (
@@ -77,7 +78,7 @@ type TInventory = {
 
         </Card>
       ))}
-      <Modal open={open}/>
+      <Modal open={isModalOpen} onOpenChange={setIsModalOpen}/>
     </div>
   )
 }
