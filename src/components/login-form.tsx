@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Cookies from "universal-cookie"
 
 export function LoginForm({
   className,
@@ -18,6 +19,7 @@ export function LoginForm({
   const url = 'http://localhost:3000/api/users/login'
   const navigate = useNavigate()
 
+  const coockies = new Cookies();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -37,7 +39,9 @@ export function LoginForm({
         setSuccess(false)
       } else {
         setSuccess(true)
-        cookieStore.set('access_token', token)
+        coockies.set('access_token', token, {
+          expires: new Date(Date.now() + 15 * 60 * 1000) // 15min
+        })
         navigate('/products')
       }
     } catch (err: any) {

@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
 import Modal from "./Modal";
+import Cookies from "universal-cookie"
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
 
@@ -35,6 +37,8 @@ type TInventory = {
   const url = 'http://localhost:3000/api/products/all'
   const [product, setProduct] = useState<TProduct[]>([])
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const cookies = new Cookies();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,6 +58,11 @@ type TInventory = {
 
   const handleClick = () => {
     setIsModalOpen(true)
+  }
+
+  const isTokenValid = cookies.get('access_token')
+  if(!isTokenValid) {
+    navigate('/login')
   }
 
   return (
