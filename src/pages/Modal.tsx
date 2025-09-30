@@ -11,7 +11,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { DialogClose } from "@radix-ui/react-dialog"
 
-const Modal = ({ open, onOpenChange }) => {
+type ModalProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void
+}
+
+const Modal = ({ open, onOpenChange }: ModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
